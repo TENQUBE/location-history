@@ -1,3 +1,5 @@
+import * as react_jsx_runtime from 'react/jsx-runtime';
+
 interface ILocationVO {
     readonly hash: string;
     readonly host: string;
@@ -33,5 +35,8 @@ interface ILocationHistory {
 }
 type ReturnTypes = [ILocationHistory, (newHistory: ILocationHistory) => void];
 declare const useLocationHistory: () => ReturnTypes;
+declare const LocaitonHistoryProvider: ({ children }: {
+    children: any;
+}) => react_jsx_runtime.JSX.Element;
 
-export { type ILocationHistory, type ILocationVO, LocationVO, useLocationHistory as default };
+export { type ILocationHistory, type ILocationVO, LocationVO, LocaitonHistoryProvider as default, useLocationHistory };

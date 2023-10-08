@@ -5,5 +5,8 @@ interface ILocationHistory {
 }
 type ReturnTypes = [ILocationHistory, (newHistory: ILocationHistory) => void];
 declare const useLocationHistory: () => ReturnTypes;
-export { LocationVO, ILocationVO, ILocationHistory };
-export default useLocationHistory;
+declare const LocaitonHistoryProvider: ({ children }: {
+    children: any;
+}) => import("react/jsx-runtime").JSX.Element;
+export { useLocationHistory, LocationVO, ILocationVO, ILocationHistory };
+export default LocaitonHistoryProvider;

@@ -2,8 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var jsxRuntime = require('react/jsx-runtime');
 var react = require('react');
-var recoil = require('recoil');
 
 class LocationVO {
     constructor() {
@@ -39,20 +39,14 @@ class LocationVO {
     }
 }
 
-const location = recoil.atom({
-    key: 'location',
-    default: {
-        list: [],
-        before: null
-    }
-});
-const useLocation = () => {
-    return recoil.useRecoilState(location);
-};
-
+const LocationContext = react.createContext(null);
 const useLocationHistory = () => {
     const observer = react.useRef();
-    const [history, setHistory] = useLocation();
+    // const [history, setHistory] = useState<ILocationHistory>({
+    //   list: [],
+    //   before: null
+    // })
+    const [history, setHistory] = react.useContext(LocationContext);
     const setInitHistory = react.useCallback(() => {
         if (history.list.length > 0)
             return;
@@ -69,6 +63,7 @@ const useLocationHistory = () => {
         observer.current = new MutationObserver(() => {
             if (oldHref !== document.location.href) {
                 oldHref = document.location.href;
+                console.log('start', history);
                 const newBefore = len > 0 ? history.list[len - 1] : null;
                 const newLocation = new LocationVO();
                 if (len > 1 && history.list[len - 2].href === newLocation.href) {
@@ -78,7 +73,9 @@ const useLocationHistory = () => {
                     });
                 }
                 else {
+                    console.log('add');
                     const list = [...history.list, newLocation];
+                    console.log(list);
                     setHistory({
                         list,
                         before: newBefore
@@ -94,7 +91,15 @@ const useLocationHistory = () => {
     }, [history]);
     return [history, setHistory];
 };
+const LocaitonHistoryProvider = ({ children }) => {
+    const [history, setHistory] = react.useState({
+        list: [],
+        before: null
+    });
+    return (jsxRuntime.jsx(LocationContext.Provider, { value: [history, setHistory], children: children }));
+};
 
 exports.LocationVO = LocationVO;
-exports.default = useLocationHistory;
+exports.default = LocaitonHistoryProvider;
+exports.useLocationHistory = useLocationHistory;
 //# sourceMappingURL=index.js.map

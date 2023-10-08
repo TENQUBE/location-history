@@ -1,6 +1,8 @@
-import { useEffect, useRef, useCallback } from "react"
+import { useEffect, useRef, useCallback, useState, createContext, useContext } from "react"
 import LocationVO, { ILocationVO } from "./vos/location"
-import { useLocation } from "./recoils/location"
+
+
+const LocationContext = createContext(null)
 
 interface ILocationHistory {
   list: ILocationVO[],
@@ -11,7 +13,13 @@ type ReturnTypes = [ILocationHistory, (newHistory: ILocationHistory) => void]
 
 const useLocationHistory = (): ReturnTypes => {
   const observer = useRef<MutationObserver>()
-  const [history, setHistory] = useLocation()
+
+  // const [history, setHistory] = useState<ILocationHistory>({
+  //   list: [],
+  //   before: null
+  // })
+
+  const [history, setHistory] = useContext(LocationContext)
 
   const setInitHistory = useCallback(() => {
     if(history.list.length > 0) return
@@ -29,6 +37,7 @@ const useLocationHistory = (): ReturnTypes => {
     observer.current = new MutationObserver(() => {
       if (oldHref !== document.location.href) {
         oldHref = document.location.href
+        console.log('start', history)
 
         const newBefore = len > 0 ? history.list[len - 1] : null
         const newLocation = new LocationVO()
@@ -39,7 +48,9 @@ const useLocationHistory = (): ReturnTypes => {
             before: newBefore
           })
         } else {
+          console.log('add')
           const list = [...history.list, newLocation]
+          console.log(list)
           setHistory({
             list,
             before: newBefore
@@ -60,5 +71,19 @@ const useLocationHistory = (): ReturnTypes => {
 }
 
 
-export { LocationVO, ILocationVO, ILocationHistory}
-export default useLocationHistory
+const LocaitonHistoryProvider = ({ children }) => {
+  const [history, setHistory] = useState<ILocationHistory>({
+    list: [],
+    before: null
+  })
+
+  return (
+    <LocationContext.Provider value={[history, setHistory]}>
+      {children}
+    </LocationContext.Provider>
+  )
+}
+
+
+export { useLocationHistory, LocationVO, ILocationVO, ILocationHistory }
+export default LocaitonHistoryProvider
