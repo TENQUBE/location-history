@@ -13,7 +13,7 @@ const White = () => {
   return (
     <div>
       <h1>white</h1>
-      <Link to="/black">black</Link>
+      <Link to="/black?foo=bar">/black?foo=bar</Link>
     </div>
   )
 }
@@ -28,7 +28,7 @@ const Black = () => {
   return (
     <div>
       <h1>black</h1>
-      <Link to="/red">red</Link>
+      <Link to="/red#foo=bar">/red#foo=bar</Link>
     </div>
   )
 }
@@ -43,7 +43,7 @@ const Red = () => {
   return (
     <div>
       <h1>Red</h1>
-      <Link to="/">white</Link>
+      <Link to="/">/white</Link>
     </div>
   )
 }

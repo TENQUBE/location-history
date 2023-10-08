@@ -61,6 +61,11 @@ class LocationVO implements ILocationVO {
       return acc
     }, {})
   }
+
+  equals(obj: unknown) {
+    return Object.entries(this).sort().toString() === Object.entries(obj).sort().toString()
+  }
+  
 }
 
 export { ILocationVO }

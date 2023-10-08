@@ -33,15 +33,14 @@ class LocationVO {
             return acc;
         }, {});
     }
+    equals(obj) {
+        return Object.entries(this).sort().toString() === Object.entries(obj).sort().toString();
+    }
 }
 
 const LocationContext = createContext(null);
 const useLocationHistory = () => {
     const observer = useRef();
-    // const [history, setHistory] = useState<ILocationHistory>({
-    //   list: [],
-    //   before: null
-    // })
     const [history, setHistory] = useContext(LocationContext);
     const setInitHistory = useCallback(() => {
         if (history.list.length > 0)
@@ -59,7 +58,6 @@ const useLocationHistory = () => {
         observer.current = new MutationObserver(() => {
             if (oldHref !== document.location.href) {
                 oldHref = document.location.href;
-                console.log('start', history);
                 const newBefore = len > 0 ? history.list[len - 1] : null;
                 const newLocation = new LocationVO();
                 if (len > 1 && history.list[len - 2].href === newLocation.href) {
@@ -69,9 +67,7 @@ const useLocationHistory = () => {
                     });
                 }
                 else {
-                    console.log('add');
                     const list = [...history.list, newLocation];
-                    console.log(list);
                     setHistory({
                         list,
                         before: newBefore

@@ -27,6 +27,7 @@ declare class LocationVO implements ILocationVO {
     readonly hashObj: unknown;
     constructor();
     private groupParamsByKey;
+    equals(obj: unknown): boolean;
 }
 
 interface ILocationHistory {

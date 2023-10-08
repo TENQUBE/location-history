@@ -2,8 +2,6 @@ import { useEffect, useRef, useCallback, useState, createContext, useContext } f
 import LocationVO, { ILocationVO } from "./vos/location"
 
 
-const LocationContext = createContext(null)
-
 interface ILocationHistory {
   list: ILocationVO[],
   before: ILocationVO | null
@@ -11,13 +9,10 @@ interface ILocationHistory {
 
 type ReturnTypes = [ILocationHistory, (newHistory: ILocationHistory) => void]
 
+const LocationContext = createContext(null)
+
 const useLocationHistory = (): ReturnTypes => {
   const observer = useRef<MutationObserver>()
-
-  // const [history, setHistory] = useState<ILocationHistory>({
-  //   list: [],
-  //   before: null
-  // })
 
   const [history, setHistory] = useContext(LocationContext)
 
@@ -37,7 +32,6 @@ const useLocationHistory = (): ReturnTypes => {
     observer.current = new MutationObserver(() => {
       if (oldHref !== document.location.href) {
         oldHref = document.location.href
-        console.log('start', history)
 
         const newBefore = len > 0 ? history.list[len - 1] : null
         const newLocation = new LocationVO()
@@ -48,9 +42,7 @@ const useLocationHistory = (): ReturnTypes => {
             before: newBefore
           })
         } else {
-          console.log('add')
           const list = [...history.list, newLocation]
-          console.log(list)
           setHistory({
             list,
             before: newBefore
