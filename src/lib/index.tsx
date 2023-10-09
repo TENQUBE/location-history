@@ -51,7 +51,7 @@ const useLocationHistory = (): ReturnTypes => {
       }
     })
 
-    observer.current.observe(document.body, { childList: true, subtree: true })
+    observer.current.observe(document.body, { childList: true, subtree: true, attributes: true })
   }, [history])
 
   useEffect(() => {    
@@ -68,6 +68,15 @@ const LocaitonHistoryProvider = ({ children }) => {
     list: [],
     before: null
   })
+
+  useEffect(() => {
+    window.history.pushState = new Proxy(window.history.pushState, {
+      apply: (target, thisArg, argArray) => {
+        document.body.setAttribute('data-lh-update', String(new Date().getTime()))
+        return target.apply(thisArg, argArray)
+      }
+    })
+  }, [])
 
   return (
     <LocationContext.Provider value={[history, setHistory]}>

@@ -79,7 +79,7 @@ const useLocationHistory = () => {
                 }
             }
         });
-        observer.current.observe(document.body, { childList: true, subtree: true });
+        observer.current.observe(document.body, { childList: true, subtree: true, attributes: true });
     }, [history]);
     react.useEffect(() => {
         setInitHistory();
@@ -92,6 +92,14 @@ const LocaitonHistoryProvider = ({ children }) => {
         list: [],
         before: null
     });
+    react.useEffect(() => {
+        window.history.pushState = new Proxy(window.history.pushState, {
+            apply: (target, thisArg, argArray) => {
+                document.body.setAttribute('data-lh-update', String(new Date().getTime()));
+                return target.apply(thisArg, argArray);
+            }
+        });
+    }, []);
     return (jsxRuntime.jsx(LocationContext.Provider, { value: [history, setHistory], children: children }));
 };
 
