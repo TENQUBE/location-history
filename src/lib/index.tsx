@@ -69,13 +69,22 @@ const LocaitonHistoryProvider = ({ children }) => {
     before: null
   })
 
+  const observerTrigger = useCallback(() => {
+    document.body.setAttribute('data-lh-update', String(new Date().getTime()))
+  }, [])
+
   useEffect(() => {
     window.history.pushState = new Proxy(window.history.pushState, {
       apply: (target, thisArg, argArray) => {
-        document.body.setAttribute('data-lh-update', String(new Date().getTime()))
+        observerTrigger()
         return target.apply(thisArg, argArray)
       }
     })
+
+    window.addEventListener('popstate', observerTrigger)
+    return () => {
+      window.removeEventListener('popstate', observerTrigger)
+    }
   }, [])
 
   return (
