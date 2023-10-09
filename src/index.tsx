@@ -60,11 +60,11 @@ const router = createBrowserRouter([
   {
     path: "red",
     element: <Red />
-  },
-]);
+  }
+])
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <LocaitonHistoryProvider>
     <RouterProvider router={router} />
   </LocaitonHistoryProvider>
-);
+)
