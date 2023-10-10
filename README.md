@@ -30,7 +30,7 @@ createRoot(document.getElementById("root") as HTMLElement).render(
   <LocaitonHistoryProvider>
     <App />
   </LocaitonHistoryProvider>
-);
+)
 ```
 
 ## Value Object
