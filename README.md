@@ -17,7 +17,7 @@ import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
 import LocaitonHistoryProvider, { useLocationHistory, ILocationHistory } from '@tenqube/locaiton-history'
 
 const White = () => {
-  const history = useLocationHistory<ILocationHistory>()
+  const history: ILocationHistory = useLocationHistory()
 
   useEffect(() => {
     console.log(history)
@@ -32,7 +32,7 @@ const White = () => {
 }
 
 const Black = () => {
-  const history = useLocationHistory<ILocationHistory>()
+  const history: ILocationHistory = useLocationHistory()
 
   useEffect(() => {
     console.log(history)

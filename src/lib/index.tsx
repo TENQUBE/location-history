@@ -7,11 +7,9 @@ interface ILocationHistory {
   before: ILocationVO | null
 }
 
-type ReturnTypes = [ILocationHistory, (newHistory: ILocationHistory) => void]
-
 const LocationContext = createContext(null)
 
-const useLocationHistory = (): ReturnTypes => {
+const useLocationHistory = (): ILocationHistory => {
   const observer = useRef<MutationObserver>()
 
   const [history, setHistory] = useContext(LocationContext)
@@ -95,5 +93,5 @@ const LocaitonHistoryProvider = ({ children }) => {
 }
 
 
-export { useLocationHistory, LocationVO, ILocationVO, ILocationHistory }
+export { useLocationHistory, ILocationVO, ILocationHistory }
 export default LocaitonHistoryProvider

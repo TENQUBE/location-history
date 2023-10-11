@@ -110,7 +110,6 @@ const LocaitonHistoryProvider = ({ children }) => {
     return (jsxRuntime.jsx(LocationContext.Provider, { value: [history, setHistory], children: children }));
 };
 
-exports.LocationVO = LocationVO;
 exports.default = LocaitonHistoryProvider;
 exports.useLocationHistory = useLocationHistory;
 //# sourceMappingURL=index.js.map
