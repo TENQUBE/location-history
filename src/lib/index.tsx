@@ -59,7 +59,7 @@ const useLocationHistory = (): ReturnTypes => {
     addObserver()
   }, [history])
 
-  return [history, setHistory]
+  return history
 }
 
 

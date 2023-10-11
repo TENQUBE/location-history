@@ -9,13 +9,15 @@ $ npm install @tenqube/locaiton-history
 ```
 
 ## Quick Start
+> For simple sample configuration, we used 'react-router-dom'.
 ```ts
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import LocaitonHistoryProvider, { useLocationHistory } from '../dist/esm/'
+import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
+import LocaitonHistoryProvider, { useLocationHistory, ILocationHistory } from '@tenqube/locaiton-history'
 
-const App = () => {
-  const [history, setHistory] = useLocationHistory()
+const White = () => {
+  const history = useLocationHistory<ILocationHistory>()
 
   useEffect(() => {
     console.log(history)
@@ -23,19 +25,53 @@ const App = () => {
 
   return (
     <div>
-      <h1>hello world</h1>
-    <div>
+      <h1>white</h1>
+      <Link to="/black?foo=bar">/black?foo=bar</Link>
+    </div>
   )
 }
 
+const Black = () => {
+  const history = useLocationHistory<ILocationHistory>()
+
+  useEffect(() => {
+    console.log(history)
+  }, [history])
+
+  return (
+    <div>
+      <h1>black</h1>
+      <Link to="/">/</Link>
+    </div>
+  )
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <White />
+  },
+  {
+    path: "/black",
+    element: <Black />
+  }
+])
+
 createRoot(document.getElementById("root") as HTMLElement).render(
   <LocaitonHistoryProvider>
-    <App />
+    <RouterProvider router={router} />
   </LocaitonHistoryProvider>
 )
 ```
 
-## Value Object
+## Interfaces
+```ts
+interface ILocationHistory {
+  list: ILocationVO[],
+  before: ILocationVO | null
+}
+```
+
 ```ts
 interface ILocationVO {
   readonly hash: string

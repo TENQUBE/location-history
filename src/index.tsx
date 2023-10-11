@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
 import LocaitonHistoryProvider, { useLocationHistory } from '../dist/esm/'
 
 const White = () => {
-  const [history, setHistory] = useLocationHistory()
+  const history = useLocationHistory()
 
   useEffect(() => {
     console.log(history)
@@ -19,7 +19,7 @@ const White = () => {
 }
 
 const Black = () => {
-  const [history, setHistory] = useLocationHistory()
+  const history = useLocationHistory()
 
   useEffect(() => {
     console.log(history)
@@ -28,22 +28,7 @@ const Black = () => {
   return (
     <div>
       <h1>black</h1>
-      <Link to="/red#foo=bar">/red#foo=bar</Link>
-    </div>
-  )
-}
-
-const Red = () => {
-  const [history, setHistory] = useLocationHistory()
-
-  useEffect(() => {
-    console.log(history)
-  }, [history])
-
-  return (
-    <div>
-      <h1>Red</h1>
-      <Link to="/">/white</Link>
+      <Link to="/">/</Link>
     </div>
   )
 }
@@ -54,12 +39,8 @@ const router = createBrowserRouter([
     element: <White />
   },
   {
-    path: "black",
+    path: "/black",
     element: <Black />
-  },
-  {
-    path: "red",
-    element: <Red />
   }
 ])
 

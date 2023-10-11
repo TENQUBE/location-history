@@ -81,7 +81,7 @@ const useLocationHistory = () => {
         setInitHistory();
         addObserver();
     }, [history]);
-    return [history, setHistory];
+    return history;
 };
 const LocaitonHistoryProvider = ({ children }) => {
     const [history, setHistory] = useState({
