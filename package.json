@@ -1,6 +1,6 @@
 {
   "name": "@tenqube/location-history",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "History management hook for React",
   "keywords": [
     "react",

@@ -1,3 +1,5 @@
+>❗ __The current version is being developed and tested internally.__
+
 # @tenqube/locaiton-history
 The position value of the previous page and the page movement history are recorded in the form of an array.
 
