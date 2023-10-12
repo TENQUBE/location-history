@@ -23,14 +23,14 @@ const useLocationHistory = (): ILocationHistory => {
   }, [history])
 
   const addObserver = useCallback(() => {
-    const len = history.list.length
     let oldHref = document.location.href
     
     if(observer.current) observer.current.disconnect()
     observer.current = new MutationObserver(() => {
       if (oldHref !== document.location.href) {
         oldHref = document.location.href
-
+        
+        const len = history.list.length
         const newBefore = len > 0 ? history.list[len - 1] : null
         const newLocation = new LocationVO()
 
@@ -49,7 +49,7 @@ const useLocationHistory = (): ILocationHistory => {
       }
     })
 
-    observer.current.observe(document.body, { childList: true, subtree: true, attributes: true })
+    observer.current.observe(document.body, { childList: true, subtree: true })
   }, [history])
 
   useEffect(() => {    
@@ -66,24 +66,6 @@ const LocaitonHistoryProvider = ({ children }) => {
     list: [],
     before: null
   })
-
-  const observerTrigger = useCallback(() => {
-    document.body.setAttribute('data-lh-update', String(new Date().getTime()))
-  }, [])
-
-  useEffect(() => {
-    window.history.pushState = new Proxy(window.history.pushState, {
-      apply: (target, thisArg, argArray) => {
-        observerTrigger()
-        return target.apply(thisArg, argArray)
-      }
-    })
-
-    window.addEventListener('popstate', observerTrigger)
-    return () => {
-      window.removeEventListener('popstate', observerTrigger)
-    }
-  }, [])
 
   return (
     <LocationContext.Provider value={[history, setHistory]}>

@@ -1,7 +1,10 @@
 >❗ __The current version is being developed and tested internally.__
 
 # @tenqube/locaiton-history
-The position value of the previous page and the page movement history are recorded in the form of an array.
+Records the previous page's position value and page movement history.
+
+> '@tenqube/locaiton-history' detects changes in the DOM and saves the location history, so it must be used with a routing-related library such as '[react-router-dom](https://github.com/remix-run/react-router)'.
+
 
 ## Installation
 ```sh
@@ -9,7 +12,7 @@ $ npm install @tenqube/locaiton-history
 ```
 
 ## Quick Start
-> For simple sample configuration, we used 'react-router-dom'.
+> For sample configuration, we used 'react-router-dom'.
 ```ts
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
