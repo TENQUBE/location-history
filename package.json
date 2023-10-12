@@ -1,7 +1,7 @@
 {
   "name": "@tenqube/location-history",
-  "version": "0.0.11",
-  "description": "History management hook for React",
+  "version": "0.0.12",
+  "description": "This is a React Hook that can save and use location information in an array format according to history changes.",
   "keywords": [
     "react",
     "location",

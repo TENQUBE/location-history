@@ -1,7 +1,7 @@
 >❗ __The current version is being developed and tested internally.__
 
 # @tenqube/locaiton-history
-Records the previous page's position value and page movement history.
+This is a React Hook that can save and use location information in an array format according to history changes.
 
 > '@tenqube/locaiton-history' detects changes in the DOM and saves the location history, so it must be used with a routing-related library such as '[react-router-dom](https://github.com/remix-run/react-router)'.
 
