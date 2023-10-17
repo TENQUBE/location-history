@@ -1,4 +1,4 @@
->❗ __The current version is being developed and tested internally.__
+>❗ __development halted.__
 
 # @tenqube/locaiton-history
 This is a React Hook that can save and use location information in an array format according to history changes.
